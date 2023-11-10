@@ -1,0 +1,116 @@
+openapi: "3.0.3"
+info:
+  title: "API para gerenciamento de despesas pessoais"
+  description: "Esta API disponibiliza recursos para gerenciamento de despesas pessoais."
+  version: "1.0"
+paths:
+  /expenses:
+    post:
+      summary: "Registra uma despesa"
+      description: "Após a despesa ser registrada é retornado os dados da despesa com o identificador preenchido."
+      responses:
+        "200":
+          description: "Dados da despesa com o identificador preenchido"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Expense"
+        "400":
+          description: "Erro informando problemas com os dados da requisição"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExceptionResponse"
+      requestBody:
+        description: "Objeto JSON contendo os dados da despesa"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseRequest"
+    get:
+      summary: "Lista despesas registradas"
+      description: "Listagem das despesas previamente registradas."
+      responses:
+        "200":
+          description: "Lista contendo as despesas"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Expense"
+    put:
+      summary: "Altera dados de uma despesas"
+      description: "Após os dados serem alterados é retornado os dados da despesa atualizados."
+      responses:
+        "200":
+          description: "Dados da despesa atualizados"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Expense"
+        "400":
+          description: "Erro informando problemas com os dados da requisição e/ou informando que a despesa não existe."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExceptionResponse"
+      requestBody:
+        description: "Objeto JSON contendo os dados da despesa"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Expense"
+  /expenses/{id}:
+    delete:
+      summary: "Remove uma despesa"
+      description: "Após a despesa ser removida é retornado um status informando que a despesa foi removida."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "Status informando que a despesa foi removida"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+        "400":
+          description: "Erro informando que a despesa não existe."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExceptionResponse"
+components:
+  schemas:
+    Expense:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+        description:
+          type: "string"
+        value:
+          type: "double"
+        paid_at:
+          type: "date"
+    ExpenseRequest:
+      type: "object"
+      properties:
+        description:
+          type: "string"
+        value:
+          type: "double"
+        paid_at:
+          type: "date"
+
+    ExceptionResponse:
+      type: "object"
+      properties:
+        error:
+          type: "integer"
+        reason:
+          type: "string"
