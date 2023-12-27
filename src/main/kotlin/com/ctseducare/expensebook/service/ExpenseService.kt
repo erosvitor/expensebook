@@ -6,12 +6,12 @@ import com.ctseducare.expensebook.model.Expense
 
 class ExpenseService(private val dao: ExpenseDAO) {
 
-    fun insert(expense: Expense) : Expense {
-        dao.insert(expense)
+    fun create(expense: Expense) : Expense {
+        dao.create(expense)
         return expense
     }
 
-    fun findAll() = dao.findAll()
+    fun readAll() = dao.readAll()
 
     fun update(expense: Expense) : Expense {
         val expenseFounded = dao.findById(expense.id!!)

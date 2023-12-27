@@ -21,7 +21,7 @@ fun Route.expense(di: DI) {
         post {
             val request = call.receive<Expense>()
             try {
-                val response = service.insert(request)
+                val response = service.create(request)
                 call.respond(HttpStatusCode.OK, response)
             } catch (e: DatabaseException) {
                 call.respond(HttpStatusCode.InternalServerError, e.message)
@@ -29,7 +29,7 @@ fun Route.expense(di: DI) {
         }
         get {
             try {
-                val response = service.findAll()
+                val response = service.readAll()
                 call.respond(HttpStatusCode.OK, response)
             } catch (e: DatabaseException) {
                 call.respond(HttpStatusCode.InternalServerError, e.message)

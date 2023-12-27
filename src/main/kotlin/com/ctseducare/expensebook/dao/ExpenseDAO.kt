@@ -9,7 +9,7 @@ import java.sql.Timestamp
 
 class ExpenseDAO(private val dataSource: HikariDataSource) {
 
-    fun insert(expense: Expense): Boolean {
+    fun create(expense: Expense): Boolean {
         val connection = dataSource.connection
         val result: Boolean
         try {
@@ -34,7 +34,7 @@ class ExpenseDAO(private val dataSource: HikariDataSource) {
         return result
     }
 
-    fun findAll(): List<Expense> {
+    fun readAll(): List<Expense> {
         val connection = dataSource.connection
         var resultSet: ResultSet? = null
         val list = mutableListOf<Expense>()
