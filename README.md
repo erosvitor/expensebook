@@ -10,7 +10,7 @@ Project created in the course API REST with Ktor.
 ## Steps to Setup
 1. Create the database
 ```
-CREATE DATABASE expensebook;
+CREATE DATABASE expensebook CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci;
 
 USE expensebook;
 
@@ -20,7 +20,7 @@ CREATE TABLE expenses (
   value DECIMAL(11,2) NOT NULL,
   paid_at DATE NOT NULL,
   PRIMARY KEY (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE utf8mb3_general_ci;
 
 ```
 
@@ -39,11 +39,13 @@ mvn package
 java -jar target/expensebook-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
+## Swagger
+```
+http://localhost:8080/swagger-ui
+```
+
 ## Using the project via Postman
-
-Run the Postman and create the following requests
-
-1. Insert a expense
+1. Create expense
 ```
 POST http://localhost:8080/expenses
 
@@ -54,7 +56,7 @@ POST http://localhost:8080/expenses
 }
 ```
 
-2. Get all expenses
+2. Read all expenses
 ```
 GET http://localhost:8080/expenses
 ```
@@ -73,12 +75,11 @@ PUT http://localhost:8080/expenses
 
 4. Delete expense
 ```
-DELETE http://localhost:8080/expense/1
+DELETE http://localhost:8080/expenses/1
 ```
 
 ## Using the project via curl
-
-1. Insert a expense
+1. Create expense
 ```
 curl --location 'http://localhost:8080/expenses' \
      --header 'Content-Type: application/json' \
@@ -89,7 +90,7 @@ curl --location 'http://localhost:8080/expenses' \
        }'
 ```
 
-2. Get all expenses
+2. Read all expenses
 ```
 curl --location 'http://localhost:8080/expenses'
 ```
@@ -108,9 +109,8 @@ curl --location --request PUT 'http://localhost:8080/expenses' \
 
 4. Delete expense
 ```
-curl --location --request DELETE 'http://localhost:8080/expense/1'
+curl --location --request DELETE 'http://localhost:8080/expenses/1'
 ```
 
 ## License
 This project is under license from MIT. For more details, see the LICENSE file.
-
