@@ -38,8 +38,8 @@ fun Route.expense(di: DI) {
         put {
             val request = call.receive<Expense>()
             try {
-                val response = service.update(request)
-                call.respond(HttpStatusCode.OK, response)
+                service.update(request)
+                call.respond(HttpStatusCode.NoContent)
             } catch (e1: ResourceNotFoundException) {
                 call.respond(HttpStatusCode.NotFound, ExceptionResponse(HttpStatusCode.NotFound.value, e1.message))
             } catch (e2: DatabaseException) {
