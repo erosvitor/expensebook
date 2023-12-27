@@ -50,8 +50,8 @@ fun Route.expense(di: DI) {
             delete {
                 val id = call.parameters["id"]?.toInt() ?: 0
                 try {
-                    val response = service.delete(id)
-                    call.respond(HttpStatusCode.OK, response)
+                    service.delete(id)
+                    call.respond(HttpStatusCode.NoContent)
                 } catch (e: ResourceNotFoundException) {
                     call.respond(HttpStatusCode.NotFound, ExceptionResponse(HttpStatusCode.NotFound.value, e.message))
                 } catch (e2: DatabaseException) {
