@@ -22,7 +22,7 @@ fun Route.expense(di: DI) {
             val request = call.receive<Expense>()
             try {
                 val response = service.create(request)
-                call.respond(HttpStatusCode.OK, response)
+                call.respond(HttpStatusCode.Created, response)
             } catch (e: DatabaseException) {
                 call.respond(HttpStatusCode.InternalServerError, e.message)
             }
