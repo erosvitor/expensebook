@@ -9,7 +9,7 @@ paths:
       summary: "Registra uma despesa"
       description: "Após a despesa ser registrada é retornado os dados da despesa com o identificador preenchido."
       responses:
-        "200":
+        "201":
           description: "Dados da despesa com o identificador preenchido"
           content:
             application/json:
@@ -40,14 +40,10 @@ paths:
                 $ref: "#/components/schemas/Expense"
     put:
       summary: "Altera dados de uma despesas"
-      description: "Após os dados serem alterados é retornado os dados da despesa atualizados."
+      description: "Após os dados serem alterados é retornado o status 204 sem conteúdo."
       responses:
-        "200":
-          description: "Dados da despesa atualizados"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Expense"
+        "204":
+          description: ""
         "400":
           description: "Erro informando problemas com os dados da requisição e/ou informando que a despesa não existe."
           content:
@@ -64,7 +60,7 @@ paths:
   /expenses/{id}:
     delete:
       summary: "Remove uma despesa"
-      description: "Após a despesa ser removida é retornado um status informando que a despesa foi removida."
+      description: "Após a despesa ser removida é retornado o status 204 sem conteúdo."
       parameters:
         - name: "id"
           in: "path"
@@ -72,12 +68,8 @@ paths:
           schema:
             type: "integer"
       responses:
-        "200":
-          description: "Status informando que a despesa foi removida"
-          content:
-            text/plain:
-              schema:
-                type: "string"
+        "204":
+          description: ""
         "400":
           description: "Erro informando que a despesa não existe."
           content:
@@ -106,7 +98,6 @@ components:
           type: "double"
         paid_at:
           type: "date"
-
     ExceptionResponse:
       type: "object"
       properties:
